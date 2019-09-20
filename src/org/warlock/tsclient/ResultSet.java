@@ -100,6 +100,7 @@ public class ResultSet {
     }
     
     public boolean isError()  { return (exception != null); }
+    public Exception getException() { return exception; }
     public String getError() { 
         if (exception == null)
             return null;
