@@ -1,0 +1,7 @@
+{
+    "type" : "batch",
+    "resourceType" : "Bundle",
+    "entry" : [
+__ENTRIES__
+    ]    
+}

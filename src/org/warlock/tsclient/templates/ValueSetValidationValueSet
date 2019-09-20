@@ -1,0 +1,22 @@
+					{
+						"name" : "valueSet",
+						"resource" : {
+						"resourceType" : "ValueSet",
+							"status" : "__STATUS__",
+							"compose": {
+							  "include": [
+								{
+								  "system": "http://snomed.info/sct",
+								  "filter": [
+									{
+									  "property": "constraint",
+									  "op": "=",
+									  "value": "__ECL_EXPRESSION__"
+									}
+								  ]
+								}
+							  ]
+							}
+						}
+					}
+

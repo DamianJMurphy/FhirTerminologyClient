@@ -1,0 +1,20 @@
+		{
+			"resource" : {
+				"parameter" : [
+					{
+						"name" : "system",
+						"valueUri" : "http://snomed.info/sct"
+					},
+					{
+						"name" : "code",
+						"valueCode" : "__CODE__"
+					},
+__VALUE_SET__				
+                                ],
+				"resourceType" : "Parameters"
+			},
+			"request" : {
+				"method" : "POST",
+				"url" : "ValueSet/$validate-code"
+			}
+		}
