@@ -17,6 +17,7 @@
  */
 package org.warlock.tsclient;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class ValueSetValidationRequest
     private static final String VALUESETTEMPLATE = "/org/warlock/tsclient/templates/ValueSetValidationValueSet";
     
     private static final String OPERATIONTYPE = "$validate-code";
+    private static IOException initException = null;
     
     private static String bundleTemplate = null;
     private static String entryTemplate = null;
@@ -42,18 +44,22 @@ public class ValueSetValidationRequest
     private int contentLength = -1;
     private byte[] content = null;
     
+    static {
+        try {
+            bundleTemplate = org.warlock.tsclient.util.Utils.loadStringResource(BUNDLETEMPLATE, BUNDLETEMPLATE);
+            entryTemplate = org.warlock.tsclient.util.Utils.loadStringResource(ENTRYTEMPLATE, ENTRYTEMPLATE);
+            valueSetTemplate = org.warlock.tsclient.util.Utils.loadStringResource(VALUESETTEMPLATE, VALUESETTEMPLATE);        
+        }
+        catch (IOException e) {
+            initException = e;
+        }
+    }
+    
     public ValueSetValidationRequest() 
             throws Exception
     {
-        if (bundleTemplate == null) {
-            bundleTemplate = org.warlock.tsclient.util.Utils.loadStringResource(BUNDLETEMPLATE, BUNDLETEMPLATE);
-        }        
-        if (entryTemplate == null) {
-            entryTemplate = org.warlock.tsclient.util.Utils.loadStringResource(ENTRYTEMPLATE, ENTRYTEMPLATE);
-        }
-        if (valueSetTemplate == null) {
-            valueSetTemplate = org.warlock.tsclient.util.Utils.loadStringResource(VALUESETTEMPLATE, VALUESETTEMPLATE);
-        }
+        if (initException != null)
+            throw initException;
     }
 
     @Override
