@@ -46,9 +46,9 @@ public class ValueSetValidationRequest
     
     static {
         try {
-            bundleTemplate = org.warlock.tsclient.util.Utils.loadStringResource(BUNDLETEMPLATE, BUNDLETEMPLATE);
-            entryTemplate = org.warlock.tsclient.util.Utils.loadStringResource(ENTRYTEMPLATE, ENTRYTEMPLATE);
-            valueSetTemplate = org.warlock.tsclient.util.Utils.loadStringResource(VALUESETTEMPLATE, VALUESETTEMPLATE);        
+            bundleTemplate = org.warlock.tsclient.util.Utils.loadStringResource(BUNDLETEMPLATE);
+            entryTemplate = org.warlock.tsclient.util.Utils.loadStringResource(ENTRYTEMPLATE);
+            valueSetTemplate = org.warlock.tsclient.util.Utils.loadStringResource(VALUESETTEMPLATE);        
         }
         catch (IOException e) {
             initException = e;

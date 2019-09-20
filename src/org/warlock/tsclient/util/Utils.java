@@ -28,10 +28,10 @@ import java.io.InputStreamReader;
  */
 public class Utils {
     
-    public static String loadStringResource(Object o, String name) 
+    public static String loadStringResource(String name) 
             throws IOException
     {
-        InputStream is = o.getClass().getResourceAsStream(name);
+        InputStream is = Utils.class.getResourceAsStream(name);
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         @SuppressWarnings("UnusedAssignment")
