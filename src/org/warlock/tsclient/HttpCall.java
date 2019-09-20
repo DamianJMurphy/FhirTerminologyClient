@@ -28,7 +28,7 @@ import javax.net.ssl.HttpsURLConnection;
  *
  * @author murff
  */
-public class HttpCall {
+class HttpCall {
 
     private URL url = null;
     private Request request = null;
