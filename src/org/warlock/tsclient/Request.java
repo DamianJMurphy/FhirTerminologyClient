@@ -31,5 +31,5 @@ public interface Request {
 
     public boolean isPost();
     
-    public ResultSet query()throws Exception;
+    public AbstractResultSet query()throws Exception;
 }

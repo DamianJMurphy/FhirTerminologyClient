@@ -46,38 +46,34 @@ class HttpCall {
         }
     }
     
-    ResultSet call()
+    String call()
+            throws Exception
     {
         @SuppressWarnings("UnusedAssignment")
         StringBuilder sb = null;
-        try {
-            request.makeBody();
-            HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
-            if (request.isPost()) {
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-type", "application/fhir+json");
-                connection.setRequestProperty("Accept", "application/fhir+json");
-                connection.setRequestProperty("Content-length", Integer.toString(request.getContentLength()));
-                connection.setDoInput(true);
-                connection.setDoOutput(true);
-                connection.getOutputStream().write(request.serialiseContent());
-    //            connection.connect();
-            } else {
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "application/fhir+json");            
-                connection.setDoOutput(true);
-            }     
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            sb = new StringBuilder();
-            @SuppressWarnings("UnusedAssignment")
-            String input = null;
-            while ((input = br.readLine()) != null) {
-                sb.append(input);
-            }
+        request.makeBody();
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        if (request.isPost()) {
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/fhir+json");
+            connection.setRequestProperty("Accept", "application/fhir+json");
+            connection.setRequestProperty("Content-length", Integer.toString(request.getContentLength()));
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.getOutputStream().write(request.serialiseContent());
+            //            connection.connect();
+        } else {
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/fhir+json");
+            connection.setDoOutput(true);
         }
-        catch (IOException e) {
-            return new ResultSet(e);
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        sb = new StringBuilder();
+        @SuppressWarnings("UnusedAssignment")
+        String input = null;
+        while ((input = br.readLine()) != null) {
+            sb.append(input);
         }
-        return new ResultSet(sb.toString());
+        return sb.toString();
     }
 }

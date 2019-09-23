@@ -1,0 +1,17 @@
+		{
+			"resource" : {
+				"parameter" : [
+					{
+						"name" : "system",
+						"valueUri" : "http://snomed.info/sct"
+					},
+__VALUE_SET__				
+                                ],
+				"resourceType" : "Parameters"
+			},
+			"request" : {
+				"method" : "POST",
+				"url" : "ValueSet/$expand"
+			}
+		}
+

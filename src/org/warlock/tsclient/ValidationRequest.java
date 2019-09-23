@@ -22,13 +22,10 @@ package org.warlock.tsclient;
  * @author murff
  */
 public class ValidationRequest 
-        implements RequestData
+        extends ValueSetRequest
 {
     
     private String code = null;
-    private String valueSetExpression = null;
-    private String valueSet = null;
-    private String status = "active";
     
     public ValidationRequest() {}
 
@@ -46,46 +43,5 @@ public class ValidationRequest
         this.code = code;
     }
 
-    /**
-     * @return the valueSetExpression
-     */
-    public String getValueSetExpression() {
-        return valueSetExpression;
-    }
-
-    /**
-     * @return the valueSet
-     */
-    public String getValueSet() {
-        return valueSet;
-    }
-
-    /**
-     * @param valueSetExpression the valueSetExpression to set
-     */
-    public void setValueSetExpression(String valueSetExpression) {
-        this.valueSetExpression = valueSetExpression;
-    }
-
-    /**
-     * @param valueSet the valueSet to set
-     */
-    public void setValueSet(String valueSet) {
-        this.valueSet = valueSet;
-    }
-
-    /**
-     * @return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
     
 }

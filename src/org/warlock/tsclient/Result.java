@@ -28,11 +28,13 @@ public class Result {
     private Exception exception = null;
     private String status = null;
     private final HashMap<String,Object> parameters = new HashMap<>();
+    private final HashMap<String,String> content = new HashMap<>();
     private RequestData requestData = null;
     
     Result() {}
     
     void addParameter(String n, Object o) { parameters.put(n, o); }
+    void addContent(String n, String s) { content.put(n, s); }
     void setException(Exception e) { exception = e; }
     void setStatus(String s) { status = s; }
     void setRequestData(RequestData rd) { requestData = rd; }

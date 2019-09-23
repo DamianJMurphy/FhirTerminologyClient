@@ -17,60 +17,28 @@
  */
 package org.warlock.tsclient;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 
 /**
  *
  * @author murff
  */
-public class ResultSet {
-   
-    private Exception exception = null;
-    private ArrayList<Result> results = null;
-    private String operationType = null;
-    private String fhirData = null;
-    private Date performedDate = new Date();
-    
-    ResultSet(String s) {
-        results = new ArrayList<>();
-        fhirData = s;
-        JSONParser jp = new JSONParser();
-        try {
-            JSONObject j = (JSONObject)jp.parse(s);
-            JSONArray entries = (JSONArray)j.get("entry");
-            Iterator entryIterator = entries.iterator();
-            while (entryIterator.hasNext()) {
-                Result r = getResult((JSONObject)entryIterator.next());
-                if (r != null) {
-                    results.add(r);
-                }
-            }
-        }
-        catch (Exception e) {
-            exception = e;
-        }
+public class ExpansionResultSet 
+        extends AbstractResultSet
+{
+    ExpansionResultSet(String s) {
+        parse(s);
     }
     
-    ResultSet(Exception ex) {
+    ExpansionResultSet(Exception ex) {
         exception = ex;
     }
-    
-    public Date getPerformedDate() { return performedDate; }
-    public String getFhirData() { return fhirData; }
-    
-    void setOperationType(String t) { operationType = t; }
-    
-    void addRequestData(int n, RequestData rd) {
-        results.get(n).setRequestData(rd);
-    }
-    
+            
     @SuppressWarnings("UnusedAssignment")
-    private Result getResult(JSONObject j) {
+    @Override
+    protected Result getResult(JSONObject j) {
         Result r = new Result();
         String stage = null;
         try {
@@ -78,6 +46,16 @@ public class ResultSet {
             JSONObject res = (JSONObject)j.get("resource");
             JSONObject response = (JSONObject)j.get("response");
             r.setStatus((String)response.get("status"));
+            stage = "Gettiing expansion";
+            JSONObject expansion = (JSONObject)res.get("expansion");
+            JSONArray contents = (JSONArray)expansion.get("contains");
+            Iterator contentIterator = contents.iterator();
+            while (contentIterator.hasNext()) {
+                JSONObject jo = (JSONObject)contentIterator.next();
+                String code = (String)jo.get("code");
+                String display = (String)jo.get("display");
+                r.addContent(code, display);
+            }
             stage = "Getting parameters";
             JSONArray params = (JSONArray)res.get("parameter");
             Iterator paramIterator = params.iterator();
@@ -88,6 +66,12 @@ public class ResultSet {
                 if (o == null) {
                     o = jo.get("valueBoolean");
                 }
+                if (o == null) {
+                    o = jo.get("valueInteger");
+                }
+                if (o == null) {
+                    o = jo.get("valueUri");
+                }
                 r.addParameter(n, o);
             }
         }
@@ -97,25 +81,5 @@ public class ResultSet {
             return r;
         }
         return r;
-    }
-    
-    public boolean isError()  { return (exception != null); }
-    public Exception getException() { return exception; }
-    public String getError() { 
-        if (exception == null)
-            return null;
-        return exception.getMessage();
-    }
-    public String getErrorDetails() {
-        if (exception == null)
-            return null;
-        StringBuilder sb = new StringBuilder(exception.toString());
-        Throwable t = exception.getCause();
-        while (t != null) {
-            sb.append(t.toString());
-            t = t.getCause();
-        }
-        return sb.toString();
-    }
-    
+    }        
 }
