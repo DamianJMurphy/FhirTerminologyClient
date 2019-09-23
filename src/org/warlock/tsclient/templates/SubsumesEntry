@@ -1,0 +1,6 @@
+		{
+			"request" : {
+				"method" : "GET",
+				"url" : "CodeSystem/$subsumes?system=http://snomed.info/sct&codeA=__CODE_A__&codeB=__CODE_B__"
+			}
+		}

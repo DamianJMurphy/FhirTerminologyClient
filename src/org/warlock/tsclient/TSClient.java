@@ -38,8 +38,17 @@ public class TSClient {
 //        ValueSetRequest v2 = new ValidationQuery();
 //        v2.setValueSetExpression("<!272379006");
 //        ValidationQuery v1 = new ValidationQuery();
-        LookupQuery v1 = new LookupQuery();
-        v1.setCode("371923003");
+//        LookupQuery v1 = new LookupQuery();
+//        v1.setCode("371923003");
+        SubsumesQuery v1 = new SubsumesQuery();
+        v1.setCodeA("419048002");
+        v1.setCodeB("272379006");
+        SubsumesQuery v2 = new SubsumesQuery();
+        v2.setCodeA("272379006");
+        v2.setCodeB("419048002");
+        SubsumesQuery v3 = new SubsumesQuery();
+        v3.setCodeA("272379006");
+        v3.setCodeB("27123005");
 //        v1.setValueSetExpression("<272141005");
 //        ValidationQuery v2 = new ValidationQuery();
 //        v2.setCode("371923003");
@@ -59,9 +68,14 @@ public class TSClient {
 //            vsvr.addValidationRequest(v3);
             
 //            ValidationResultSet r = vsvr.query();
-            LookupRequest lr = new LookupRequest();
-           lr.addLookup(v1);
-           LookupResultSet lrs = lr.query();
+//            LookupRequest lr = new LookupRequest();
+//           lr.addLookup(v1);
+//           LookupResultSet lrs = lr.query();
+            SubsumesRequest sr = new SubsumesRequest();
+            sr.addSubsumesRequest(v1);
+            sr.addSubsumesRequest(v2);
+            sr.addSubsumesRequest(v3);
+            SubsumesResultSet srs = sr.query();
             int i = 0;
         }
         catch (Exception e) {
