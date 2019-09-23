@@ -17,25 +17,31 @@
  */
 package org.warlock.tsclient;
 
-import java.util.HashMap;
-
 /**
  *
  * @author murff
  */
-public class Result {
+public class ValidationQuery 
+        extends ValueSetQuery
+{
     
-    private Exception exception = null;
-    private String status = null;
-    private final HashMap<String,Object> parameters = new HashMap<>();
-    private final HashMap<String,String> content = new HashMap<>();
-    private QueryData requestData = null;
+    private String code = null;
     
-    Result() {}
+    public ValidationQuery() {}
+
+    /**
+     * @return the code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * @param code the code to set
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     
-    void addParameter(String n, Object o) { parameters.put(n, o); }
-    void addContent(String n, String s) { content.put(n, s); }
-    void setException(Exception e) { exception = e; }
-    void setStatus(String s) { status = s; }
-    void setRequestData(QueryData rd) { requestData = rd; }
 }

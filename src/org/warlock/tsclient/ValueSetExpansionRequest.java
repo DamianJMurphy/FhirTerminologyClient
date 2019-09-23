@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class ValueSetExpansionRequest 
         implements Request
 {
-    private final ArrayList<ValueSetRequest> requests = new ArrayList<>();
+    private final ArrayList<ValueSetQuery> requests = new ArrayList<>();
     
     private static final String BUNDLETEMPLATE = "/org/warlock/tsclient/templates/BundleTemplate";
     private static final String ENTRYTEMPLATE = "/org/warlock/tsclient/templates/ValueSetExpansionEntry";
@@ -62,7 +62,7 @@ public class ValueSetExpansionRequest
             throw initException;
     }
     
-    public void addExpansionRequest(ValueSetRequest v) {
+    public void addExpansionRequest(ValueSetQuery v) {
         requests.add(v);
     }
     
@@ -94,7 +94,7 @@ public class ValueSetExpansionRequest
     private String makeEntries() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < requests.size(); i++) {
-            ValueSetRequest v = requests.get(i);
+            ValueSetQuery v = requests.get(i);
             sb.append(makeEntry(v));
             if (i < requests.size() - 1) {
                 sb.append(",");
@@ -108,7 +108,7 @@ public class ValueSetExpansionRequest
         return true;
     }
     
-    private String makeEntry(ValueSetRequest v) {
+    private String makeEntry(ValueSetQuery v) {
         if (v.getValueSet() != null) {
             return entryTemplate.replace("__VALUE_SET__", v.getValueSet());
         }

@@ -33,32 +33,35 @@ public class TSClient {
         //
         System.setProperty(TERMINOLOGY_SERVER_URL_BASE, "https://ontoserver-dev.dataproducts.nhs.uk/fhir");
         
-//        ValueSetRequest v1 = new ValidationRequest();
+//        ValueSetRequest v1 = new ValidationQuery();
 //        v1.setValueSetExpression("<!272141005");
-//        ValueSetRequest v2 = new ValidationRequest();
+//        ValueSetRequest v2 = new ValidationQuery();
 //        v2.setValueSetExpression("<!272379006");
-        ValidationRequest v1 = new ValidationRequest();
+//        ValidationQuery v1 = new ValidationQuery();
+        LookupQuery v1 = new LookupQuery();
         v1.setCode("371923003");
-        v1.setValueSetExpression("<272141005");
-        ValidationRequest v2 = new ValidationRequest();
-        v2.setCode("371923003");
-        v2.setValueSetExpression("<!272379006");
-        ValidationRequest v3 = new ValidationRequest();
-        v3.setCode("218225007");
-        v3.setValueSetExpression("<!272379006");       
+//        v1.setValueSetExpression("<272141005");
+//        ValidationQuery v2 = new ValidationQuery();
+//        v2.setCode("371923003");
+//        v2.setValueSetExpression("<!272379006");
+//        ValidationQuery v3 = new ValidationQuery();
+//        v3.setCode("218225007");
+//        v3.setValueSetExpression("<!272379006");       
         try {
 //            ValueSetExpansionRequest vsvr = new ValueSetExpansionRequest();
 //            vsvr.addExpansionRequest(v1);
 //            vsvr.addExpansionRequest(v2);
             
 //            ExpansionResultSet r = vsvr.query();
-            ValueSetValidationRequest vsvr = new ValueSetValidationRequest();
-            vsvr.addValidationRequest(v1);
-            vsvr.addValidationRequest(v2);
-            vsvr.addValidationRequest(v3);
+//            ValueSetValidationRequest vsvr = new ValueSetValidationRequest();
+//            vsvr.addValidationRequest(v1);
+//            vsvr.addValidationRequest(v2);
+//            vsvr.addValidationRequest(v3);
             
-            ValidationResultSet r = vsvr.query();
-
+//            ValidationResultSet r = vsvr.query();
+            LookupRequest lr = new LookupRequest();
+           lr.addLookup(v1);
+           LookupResultSet lrs = lr.query();
             int i = 0;
         }
         catch (Exception e) {

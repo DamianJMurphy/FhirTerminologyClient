@@ -31,5 +31,10 @@ public interface Request {
 
     public boolean isPost();
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public AbstractResultSet query()throws Exception;
 }

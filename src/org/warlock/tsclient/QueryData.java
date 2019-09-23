@@ -21,27 +21,6 @@ package org.warlock.tsclient;
  *
  * @author murff
  */
-public class ValidationRequest 
-        extends ValueSetRequest
-{
-    
-    private String code = null;
-    
-    public ValidationRequest() {}
-
-    /**
-     * @return the code
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * @param code the code to set
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
+public interface QueryData {
     
 }

@@ -60,7 +60,7 @@ public abstract class AbstractResultSet {
     
     protected abstract Result getResult(JSONObject j);
     
-    void addRequestData(int n, RequestData rd) {
+    void addRequestData(int n, QueryData rd) {
         results.get(n).setRequestData(rd);
     }
         

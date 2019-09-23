@@ -25,21 +25,19 @@ import java.util.ArrayList;
  *
  * @author murff
  */
-public class ValueSetValidationRequest 
+public class LookupRequest 
         implements Request
 {
-    private final ArrayList<ValidationQuery> requests = new ArrayList<>();
+    private final ArrayList<LookupQuery> requests = new ArrayList<>();
     
     private static final String BUNDLETEMPLATE = "/org/warlock/tsclient/templates/BundleTemplate";
-    private static final String ENTRYTEMPLATE = "/org/warlock/tsclient/templates/ValueSetValidationEntry";
-    private static final String VALUESETTEMPLATE = "/org/warlock/tsclient/templates/ValueSet";
+    private static final String ENTRYTEMPLATE = "/org/warlock/tsclient/templates/LookupEntry";
     
-    private static final String OPERATIONTYPE = "$validate-code";
+    private static final String OPERATIONTYPE = "$lookup";
     private static IOException initException = null;
     
     private static String bundleTemplate = null;
     private static String entryTemplate = null;
-    private static String valueSetTemplate = null;
     
     private int contentLength = -1;
     private byte[] content = null;
@@ -48,43 +46,21 @@ public class ValueSetValidationRequest
         try {
             bundleTemplate = org.warlock.tsclient.util.Utils.loadStringResource(BUNDLETEMPLATE);
             entryTemplate = org.warlock.tsclient.util.Utils.loadStringResource(ENTRYTEMPLATE);
-            valueSetTemplate = org.warlock.tsclient.util.Utils.loadStringResource(VALUESETTEMPLATE);        
         }
         catch (IOException e) {
             initException = e;
         }
     }
     
-    public ValueSetValidationRequest() 
+    public LookupRequest() 
             throws Exception
     {
         if (initException != null)
             throw initException;
     }
 
-    @Override
-    public ValidationResultSet query()
-            throws Exception
-    {
-        HttpCall c = new HttpCall(this);
-        @SuppressWarnings("UnusedAssignment")
-        ValidationResultSet r = null;  
-        try {
-            String s = c.call();
-            r = new ValidationResultSet(s);
-        }
-        catch (Exception e) {
-            return new ValidationResultSet(e);
-        }
-        for (int i= 0; i < requests.size(); i++) {
-            r.addRequestData(i, requests.get(i));
-        }
-        r.setOperationType(OPERATIONTYPE);
-        return r;
-    }
-    
-    public void addValidationRequest(ValidationQuery v) {
-        requests.add(v);
+    public void addLookup(LookupQuery l) {
+        requests.add(l);
     }
     
     @Override
@@ -115,7 +91,7 @@ public class ValueSetValidationRequest
     private String makeEntries() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < requests.size(); i++) {
-            ValidationQuery v = requests.get(i);
+            LookupQuery v = requests.get(i);
             sb.append(makeEntry(v));
             if (i < requests.size() - 1) {
                 sb.append(",");
@@ -129,14 +105,8 @@ public class ValueSetValidationRequest
         return true;
     }
     
-    private String makeEntry(ValidationQuery v) {
-        String coded = entryTemplate.replace("__CODE__", v.getCode());
-        if (v.getValueSet() != null) {
-            return coded.replace("__VALUE_SET__", v.getValueSet());
-        }
-        String vs = valueSetTemplate.replace("__ECL_EXPRESSION__", v.getValueSetExpression());
-        vs = vs.replace("__STATUS__", v.getStatus());
-        return coded.replace("__VALUE_SET__", vs);
+    private String makeEntry(LookupQuery v) {
+        return entryTemplate.replace("__CODE__", v.getCode());
     }
     
     @Override
@@ -147,6 +117,24 @@ public class ValueSetValidationRequest
     @Override
     public byte[] serialiseContent() {
         return content;
+    }
+
+    @Override
+    public LookupResultSet query() throws Exception {
+        HttpCall c = new HttpCall(this);
+        LookupResultSet r = null;
+        try {
+            String s = c.call();
+            r = new LookupResultSet(s);
+        }
+        catch (Exception e) {
+            return new LookupResultSet(e);   
+        }
+        for (int i= 0; i < requests.size(); i++) {
+            r.addRequestData(i, requests.get(i));
+        }
+        r.setOperationType(OPERATIONTYPE);
+        return r;        
     }
     
 }

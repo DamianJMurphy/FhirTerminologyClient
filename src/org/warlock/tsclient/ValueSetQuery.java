@@ -21,14 +21,14 @@ package org.warlock.tsclient;
  *
  * @author murff
  */
-public class ValueSetRequest 
-        implements RequestData
+public class ValueSetQuery 
+        implements QueryData
 {
     protected String valueSetExpression = null;
     protected String valueSet = null;
     protected String status = "active";
     
-    public ValueSetRequest() {}
+    public ValueSetQuery() {}
     
     /**
      * @return the valueSetExpression
