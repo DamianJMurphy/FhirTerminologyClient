@@ -58,6 +58,19 @@ public abstract class AbstractResultSet {
         
     }
     
+    protected void handleIssue(Result r, JSONObject resource) {
+        JSONArray issues = (JSONArray)resource.get("issue");
+        Iterator issueIterator = issues.iterator();
+        while (issueIterator.hasNext()) {
+            JSONObject jo = (JSONObject)issueIterator.next();
+            String c = (String)jo.get("code");
+            String d = (String)jo.get("diagnostics");
+            String s = (String)jo.get("severity");
+            Issue issue = new Issue(c, d, s);
+            r.addIssue(issue);
+        }
+    }
+    
     protected abstract Result getResult(JSONObject j);
     
     void addRequestData(int n, QueryData rd) {

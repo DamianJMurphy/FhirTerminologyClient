@@ -74,6 +74,9 @@ public class ExpansionResultSet
                 }
                 r.addParameter(n, o);
             }
+            // Handle "issue" cases here, and replicate code to other operations.
+            //
+            handleIssue(r, res);            
         }
         catch (Exception e) {
             Exception ex = new Exception("Result structural failure: " + stage, e);

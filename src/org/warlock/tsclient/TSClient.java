@@ -44,7 +44,8 @@ public class TSClient {
         v1.setCodeA("419048002");
         v1.setCodeB("272379006");
         SubsumesQuery v2 = new SubsumesQuery();
-        v2.setCodeA("272379006");
+//        v2.setCodeA("272379006");
+        v2.setCodeA("ABCDEF");
         v2.setCodeB("419048002");
         SubsumesQuery v3 = new SubsumesQuery();
         v3.setCodeA("272379006");

@@ -17,6 +17,7 @@
  */
 package org.warlock.tsclient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -30,6 +31,7 @@ public class Result {
     private final HashMap<String,Object> parameters = new HashMap<>();
     private final HashMap<String,String> content = new HashMap<>();
     private QueryData requestData = null;
+    private ArrayList<Issue> issues = new ArrayList<>();
     
     Result() {}
     
@@ -38,4 +40,5 @@ public class Result {
     void setException(Exception e) { exception = e; }
     void setStatus(String s) { status = s; }
     void setRequestData(QueryData rd) { requestData = rd; }
+    void addIssue(Issue i) { issues.add(i); }
 }

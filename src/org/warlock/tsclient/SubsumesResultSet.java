@@ -55,7 +55,9 @@ public class SubsumesResultSet
                 String n = (String)jo.get("name");
                 r.addParameter(n, o);
             }
-            // TODO NEXT: Handle "issue" cases here, and replicate code to other operations.
+            // Handle "issue" cases here, and replicate code to other operations.
+            //
+            handleIssue(r, res);
         }
         catch (Exception e) {
             Exception ex = new Exception("Result structural failure: " + stage, e);
