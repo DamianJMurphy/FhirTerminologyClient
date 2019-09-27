@@ -55,7 +55,6 @@ public abstract class AbstractResultSet {
         catch (ParseException e) {
             exception = e;
         }
-        
     }
     
     protected void handleIssue(Result r, JSONObject resource) {
