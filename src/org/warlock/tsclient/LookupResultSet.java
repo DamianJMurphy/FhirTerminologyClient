@@ -49,29 +49,32 @@ public class LookupResultSet
             r.setStatus((String)response.get("status"));
             stage = "Getting parameters";
             JSONArray params = (JSONArray)res.get("parameter");
-            ArrayList<String> properties = new ArrayList<>();
-            Iterator paramIterator = params.iterator();
-            while (paramIterator.hasNext()) {
-                JSONObject jo = (JSONObject)paramIterator.next();
-                String n = (String)jo.get("name");
-                Object o = jo.get("valueString");
-                if (o == null) {
-                    // Data is a "part" JSON array
-                    JSONArray part = (JSONArray)jo.get("part");
-                    if (n.contentEquals("property")) {
-                       properties.add(makePart(part));
-                    } else {
-                        o = makePart(part);                        
+            if (params != null) {
+                ArrayList<String> properties = new ArrayList<>();
+                Iterator paramIterator = params.iterator();
+                while (paramIterator.hasNext()) {
+                    JSONObject jo = (JSONObject)paramIterator.next();
+                    String n = (String)jo.get("name");
+                    Object o = jo.get("valueString");
+                    if (o == null) {
+                        // Data is a "part" JSON array
+                        JSONArray part = (JSONArray)jo.get("part");
+                        if (n.contentEquals("property")) {
+                           properties.add(makePart(part));
+                        } else {
+                            o = makePart(part);                        
+                        }
+                    }
+                    if (!n.contentEquals("property")) {
+                        r.addParameter(n, o);
                     }
                 }
-                if (!n.contentEquals("property")) {
-                    r.addParameter(n, o);
-                }
+                r.addParameter("property", properties);
+            } else {
+                // Handle "issue" cases here, and replicate code to other operations.
+                //
+                handleIssue(r, res);
             }
-            r.addParameter("property", properties);
-            // Handle "issue" cases here, and replicate code to other operations.
-            //
-            handleIssue(r, res);
         }
         catch (Exception e) {
             Exception ex = new Exception("Result structural failure: " + stage, e);

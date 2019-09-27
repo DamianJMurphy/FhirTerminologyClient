@@ -48,16 +48,19 @@ public class SubsumesResultSet
             r.setStatus((String)response.get("status"));
             stage = "Getting parameters";
             JSONArray params = (JSONArray)res.get("parameter");
-            Iterator paramIterator = params.iterator();
-            while (paramIterator.hasNext()) {
-                JSONObject jo = (JSONObject)paramIterator.next();
-                Object o = jo.get("valueCode");
-                String n = (String)jo.get("name");
-                r.addParameter(n, o);
+            if (params != null) {
+                Iterator paramIterator = params.iterator();
+                while (paramIterator.hasNext()) {
+                    JSONObject jo = (JSONObject)paramIterator.next();
+                    Object o = jo.get("valueCode");
+                    String n = (String)jo.get("name");
+                    r.addParameter(n, o);
+                }
+            } else {
+                // Handle "issue" cases here, and replicate code to other operations.
+                //
+                handleIssue(r, res);                
             }
-            // Handle "issue" cases here, and replicate code to other operations.
-            //
-            handleIssue(r, res);
         }
         catch (Exception e) {
             Exception ex = new Exception("Result structural failure: " + stage, e);

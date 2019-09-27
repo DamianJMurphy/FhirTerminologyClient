@@ -31,7 +31,8 @@ public class TSClient {
         
         // TODO: Replace this with command-line handling
         //
-        System.setProperty(TERMINOLOGY_SERVER_URL_BASE, "https://ontoserver-dev.dataproducts.nhs.uk/fhir");
+//        System.setProperty(TERMINOLOGY_SERVER_URL_BASE, "https://ontoserver-dev.dataproducts.nhs.uk/fhir");
+        System.setProperty(TERMINOLOGY_SERVER_URL_BASE, "https://ontoserver.dataproducts.nhs.uk/fhir");
         
 //        ValueSetRequest v1 = new ValidationQuery();
 //        v1.setValueSetExpression("<!272141005");

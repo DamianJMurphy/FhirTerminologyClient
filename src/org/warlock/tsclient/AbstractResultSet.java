@@ -59,6 +59,8 @@ public abstract class AbstractResultSet {
     
     protected void handleIssue(Result r, JSONObject resource) {
         JSONArray issues = (JSONArray)resource.get("issue");
+        if (issues == null)
+            return;
         Iterator issueIterator = issues.iterator();
         while (issueIterator.hasNext()) {
             JSONObject jo = (JSONObject)issueIterator.next();

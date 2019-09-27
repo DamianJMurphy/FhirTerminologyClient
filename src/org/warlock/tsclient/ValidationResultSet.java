@@ -49,19 +49,22 @@ public class ValidationResultSet
             r.setStatus((String)response.get("status"));
             stage = "Getting parameters";
             JSONArray params = (JSONArray)res.get("parameter");
-            Iterator paramIterator = params.iterator();
-            while (paramIterator.hasNext()) {
-                JSONObject jo = (JSONObject)paramIterator.next();
-                Object o = jo.get("valueString");
-                String n = (String)jo.get("name");
-                if (o == null) {
-                    o = jo.get("valueBoolean");
+            if (params != null) {
+                Iterator paramIterator = params.iterator();
+                while (paramIterator.hasNext()) {
+                    JSONObject jo = (JSONObject)paramIterator.next();
+                    Object o = jo.get("valueString");
+                    String n = (String)jo.get("name");
+                    if (o == null) {
+                        o = jo.get("valueBoolean");
+                    }
+                    r.addParameter(n, o);
                 }
-                r.addParameter(n, o);
-            }
-            // Handle "issue" cases here, and replicate code to other operations.
-            //
-            handleIssue(r, res);            
+            } else {
+                // Handle "issue" cases here, and replicate code to other operations.
+                //
+                handleIssue(r, res);
+            }            
         }
         catch (Exception e) {
             Exception ex = new Exception("Result structural failure: " + stage, e);

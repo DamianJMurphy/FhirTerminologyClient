@@ -58,25 +58,28 @@ public class ExpansionResultSet
             }
             stage = "Getting parameters";
             JSONArray params = (JSONArray)res.get("parameter");
-            Iterator paramIterator = params.iterator();
-            while (paramIterator.hasNext()) {
-                JSONObject jo = (JSONObject)paramIterator.next();
-                Object o = jo.get("valueString");
-                String n = (String)jo.get("name");
-                if (o == null) {
-                    o = jo.get("valueBoolean");
+            if (params != null) {
+                Iterator paramIterator = params.iterator();
+                while (paramIterator.hasNext()) {
+                    JSONObject jo = (JSONObject)paramIterator.next();
+                    Object o = jo.get("valueString");
+                    String n = (String)jo.get("name");
+                    if (o == null) {
+                        o = jo.get("valueBoolean");
+                    }
+                    if (o == null) {
+                        o = jo.get("valueInteger");
+                    }
+                    if (o == null) {
+                        o = jo.get("valueUri");
+                    }
+                    r.addParameter(n, o);
                 }
-                if (o == null) {
-                    o = jo.get("valueInteger");
-                }
-                if (o == null) {
-                    o = jo.get("valueUri");
-                }
-                r.addParameter(n, o);
-            }
-            // Handle "issue" cases here, and replicate code to other operations.
-            //
-            handleIssue(r, res);            
+            } else {
+                // Handle "issue" cases here, and replicate code to other operations.
+                //
+                handleIssue(r, res);
+            }            
         }
         catch (Exception e) {
             Exception ex = new Exception("Result structural failure: " + stage, e);
