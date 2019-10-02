@@ -9,6 +9,10 @@
 					{
 						"name" : "code",
 						"valueCode" : "__CODE__"
+					},
+					{
+						"name" : "property",
+						"valueCode" : "*"
 					}
 				],
 				"resourceType" : "Parameters"
