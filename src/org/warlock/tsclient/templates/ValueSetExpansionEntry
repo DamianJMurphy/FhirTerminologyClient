@@ -5,6 +5,19 @@
 						"name" : "system",
 						"valueUri" : "http://snomed.info/sct"
 					},
+					{
+						"name" : "includeDefinition",
+						"valueBoolean" : true
+					},
+					{
+						"name" : "excludeNested",
+						"valueBoolean" : false
+					},
+					{
+						"name" : "excludePostCoordinated",
+						"valueBoolean" : false
+					},
+
 __VALUE_SET__				
                                 ],
 				"resourceType" : "Parameters"

@@ -34,23 +34,23 @@ public class TSClient {
 //        System.setProperty(TERMINOLOGY_SERVER_URL_BASE, "https://ontoserver-dev.dataproducts.nhs.uk/fhir");
         System.setProperty(TERMINOLOGY_SERVER_URL_BASE, "https://ontoserver.dataproducts.nhs.uk/fhir");
         
-//        ValueSetRequest v1 = new ValidationQuery();
-//        v1.setValueSetExpression("<!272141005");
-//        ValueSetRequest v2 = new ValidationQuery();
-//        v2.setValueSetExpression("<!272379006");
+        ValueSetQuery v1 = new ValidationQuery();
+        v1.setValueSetExpression("<!272141005");
+        ValueSetQuery v2 = new ValidationQuery();
+        v2.setValueSetExpression("<!272379006");
 //        ValidationQuery v1 = new ValidationQuery();
 //        LookupQuery v1 = new LookupQuery();
 //        v1.setCode("371923003");
-        SubsumesQuery v1 = new SubsumesQuery();
-        v1.setCodeA("419048002");
-        v1.setCodeB("272379006");
-        SubsumesQuery v2 = new SubsumesQuery();
+//        SubsumesQuery v1 = new SubsumesQuery();
+//        v1.setCodeA("419048002");
+//        v1.setCodeB("272379006");
+//        SubsumesQuery v2 = new SubsumesQuery();
 //        v2.setCodeA("272379006");
-        v2.setCodeA("ABCDEF");
-        v2.setCodeB("419048002");
-        SubsumesQuery v3 = new SubsumesQuery();
-        v3.setCodeA("272379006");
-        v3.setCodeB("27123005");
+//        v2.setCodeA("ABCDEF");
+//        v2.setCodeB("419048002");
+//        SubsumesQuery v3 = new SubsumesQuery();
+//        v3.setCodeA("272379006");
+//        v3.setCodeB("27123005");
 //        v1.setValueSetExpression("<272141005");
 //        ValidationQuery v2 = new ValidationQuery();
 //        v2.setCode("371923003");
@@ -59,11 +59,11 @@ public class TSClient {
 //        v3.setCode("218225007");
 //        v3.setValueSetExpression("<!272379006");       
         try {
-//            ValueSetExpansionRequest vsvr = new ValueSetExpansionRequest();
-//            vsvr.addExpansionRequest(v1);
-//            vsvr.addExpansionRequest(v2);
-            
-//            ExpansionResultSet r = vsvr.query();
+            ValueSetExpansionRequest vsvr = new ValueSetExpansionRequest();
+            vsvr.addExpansionRequest(v1);
+            vsvr.addExpansionRequest(v2);
+           
+            ExpansionResultSet r = vsvr.query();
 //            ValueSetValidationRequest vsvr = new ValueSetValidationRequest();
 //            vsvr.addValidationRequest(v1);
 //            vsvr.addValidationRequest(v2);
@@ -73,11 +73,11 @@ public class TSClient {
 //            LookupRequest lr = new LookupRequest();
 //           lr.addLookup(v1);
 //           LookupResultSet lrs = lr.query();
-            SubsumesRequest sr = new SubsumesRequest();
-            sr.addSubsumesRequest(v1);
-            sr.addSubsumesRequest(v2);
-            sr.addSubsumesRequest(v3);
-            SubsumesResultSet srs = sr.query();
+//            SubsumesRequest sr = new SubsumesRequest();
+//            sr.addSubsumesRequest(v1);
+//            sr.addSubsumesRequest(v2);
+//            sr.addSubsumesRequest(v3);
+//            SubsumesResultSet srs = sr.query();
             int i = 0;
         }
         catch (Exception e) {
